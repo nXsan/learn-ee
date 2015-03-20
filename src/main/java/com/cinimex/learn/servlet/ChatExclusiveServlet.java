@@ -2,40 +2,37 @@ package com.cinimex.learn.servlet;
 
 import com.cinimex.learn.service.ChatService;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.jms.*;
+import javax.jms.Destination;
+import javax.jms.JMSContext;
+import javax.jms.Queue;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-@WebServlet("/chat")
-public class ChatServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+@WebServlet("/chat_exclusive")
+public class ChatExclusiveServlet extends HttpServlet {
+    private static final long serialVersionUID = 2L;
 
     @Inject
     private JMSContext context;
 
-    @Resource(lookup = "java:/jms/queue/Chat")
-    private Queue chatQueue;
-
     @EJB
     private ChatService chatService;
-    
+
     final private Integer autoRefresh = 10;
 
     /**
      * Get messages and show them
      * @param request
      * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,16 +44,27 @@ public class ChatServlet extends HttpServlet {
             out.write("<p>Auto refresh every " + autoRefresh + " seconds</p>");
         }
         try {
-            String qName = "default";
-            if (chatQueue != null) {
-                final Destination destination = chatQueue;
-                qName = chatQueue.getQueueName();
+            String sessionId = request.getRequestedSessionId();
+            Queue queue;
 
-                if (destination != null) {
-                    out.write("<p>Sending messages to <em>" + destination + "</em></p>");
-                }
-                out.write("<h3>Following messages in query: " + qName + "</h3>");
+            // Queue from pull or list free queue
+            if (sessionId != null) {
+                queue = chatService.getQueueBySessionId(sessionId);
             }
+            else {
+                // If not receive session from browser
+                throw new RuntimeException();
+            }
+
+            out.write("Session: " + request.getRequestedSessionId());
+
+            final Destination destination = queue;
+            String qName = queue.getQueueName();
+
+            if (destination != null) {
+                out.write("<p>Sending messages to <em>" + destination + "</em></p>");
+            }
+            out.write("<h3>Following messages in query: " + qName + "</h3>");
 
             // Check on null for testing purpose
             if (chatService != null) {
@@ -73,30 +81,29 @@ public class ChatServlet extends HttpServlet {
             out.write("<input type='submit' value='Send' /></form>");
 
             // Buttons for refreshing messages (do this method)
-            out.write("<a href='chat'><button>Refresh</button></a>");
+            out.write("<a href='chat_exclusive'><button>Refresh</button></a>");
         }
         catch (Exception e) {
-            out.write("Runtime exception");
+            out.write("Runtime exception for " + request.getRequestedSessionId());
             e.printStackTrace();
         }
-
     }
 
     /**
      * Sending JMS message in query and after that return in chat page
      * @param request
      * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final Destination destination = chatQueue;
+        final Destination destination = chatService.getQueueBySessionId(request.getRequestedSessionId());
         String msg = request.getParameter("message");
 
         sendMessage(destination, msg);
 
-        response.sendRedirect("chat");
+        response.sendRedirect("chat_exclusive");
     }
 
     protected void sendMessage(Destination destination, String msg) {
@@ -104,6 +111,7 @@ public class ChatServlet extends HttpServlet {
             context.createProducer().send(destination, msg);
         }
     }
+
 
 
 }
