@@ -3,7 +3,6 @@ package com.cinimex.learn.service;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.*;
-import javax.jms.JMSException;
 import javax.jms.Queue;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -29,7 +28,12 @@ public class ChatService {
     private Queue chatQueue2;
 
     private static Map<String, Queue> sessionPull = new HashMap<>(); // User to Query map
-    private static ArrayList<Queue> queueList = new ArrayList(); // List available query
+    private static ArrayList<Queue> availableQueue = new ArrayList(); // List available query
+    private static ArrayList<Queue> allQueue = new ArrayList(); // List all query
+
+    public ArrayList<Queue> getAllQueues() {
+        return allQueue;
+    }
 
     @Lock(LockType.READ)
     public ArrayList<String> getMessages(String destination) {
@@ -76,7 +80,7 @@ public class ChatService {
     }
 
     /**
-     * Get Queue from pool (if user already have queue) or queueList (if user not have queue)
+     * Get Queue from pool (if user already have queue) or availableQueue (if user not have queue)
      * @param sessionId
      * @return
      * @throws RuntimeException if not have queue for user
@@ -87,8 +91,8 @@ public class ChatService {
             queue = sessionPull.get(sessionId);
         }
         else {
-            if (queueList.size() > 0) {
-                queue = queueList.remove(0);
+            if (availableQueue.size() > 0) {
+                queue = availableQueue.remove(0);
                 sessionPull.put(sessionId, queue);
             }
             else {
@@ -100,8 +104,13 @@ public class ChatService {
 
     @PostConstruct
     protected void init() {
-        queueList.add(chatQueue);
-        queueList.add(chatQueue2);
+        allQueue.add(chatQueue);
+        allQueue.add(chatQueue2);
+
+        // In start server all queue available
+        for (Queue q : allQueue) {
+            availableQueue.add(q);
+        }
     }
 
 }

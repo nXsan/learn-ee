@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 @WebServlet("/chat_exclusive")
 public class ChatExclusiveServlet extends HttpServlet {
@@ -75,9 +76,15 @@ public class ChatExclusiveServlet extends HttpServlet {
             }
 
             // Show form for sending new message
-            out.write("<h3>Form for sending message:</h3>");
+            out.write("<h3>Form for sending message</h3>");
             out.write("<form method='post'>");
-            out.write("<label for='msg'>Message</label><input id='msg' type='text' name='message'>");
+            out.write("<p>Query for sending:</p>");
+            int i = 0;
+            for (Queue q : chatService.getAllQueues()) {
+                out.write("<input type=\"radio\" name=\"queryChose\" value=\"" + i++ + "\">"+ q.getQueueName()+"<br/>");
+            }
+//            out.write("<input type=\"radio\" name=\"queryChose\" value=\"2\">Chat2<br/><br/>");
+            out.write("<label for='msg'>Message: </label><input id='msg' type='text' name='message'>");
             out.write("<input type='submit' value='Send' /></form>");
 
             // Buttons for refreshing messages (do this method)
@@ -90,7 +97,7 @@ public class ChatExclusiveServlet extends HttpServlet {
     }
 
     /**
-     * Sending JMS message in query and after that return in chat page
+     * Sending JMS message in chosen query and after that send GET in chat page
      * @param request
      * @param response
      * @throws javax.servlet.ServletException
@@ -98,10 +105,26 @@ public class ChatExclusiveServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final Destination destination = chatService.getQueueBySessionId(request.getRequestedSessionId());
-        String msg = request.getParameter("message");
+        String choseQueue = request.getParameter("queryChose");
 
-        sendMessage(destination, msg);
+        // Get queue by index in queue list
+        Destination destination = null;
+        Integer i = 0;
+        for (Queue q: chatService.getAllQueues()) {
+            if (choseQueue.equals(i.toString())) {
+                destination = q;
+            }
+            i++;
+        }
+
+        if (destination != null) {
+            String msg = request.getParameter("message");
+            sendMessage(destination, msg);
+        }
+        else {
+            throw new RuntimeException();
+        }
+
 
         response.sendRedirect("chat_exclusive");
     }
