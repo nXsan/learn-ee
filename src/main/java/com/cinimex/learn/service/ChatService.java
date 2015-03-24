@@ -28,8 +28,8 @@ public class ChatService {
     @Resource(lookup = "java:/jms/queue/Chat2")
     private Queue chatQueue2;
 
-    private static Map<String, Queue> sessionPull = new HashMap<>();
-    private static ArrayList<Queue> queueList = new ArrayList();
+    private static Map<String, Queue> sessionPull = new HashMap<>(); // User to Query map
+    private static ArrayList<Queue> queueList = new ArrayList(); // List available query
 
     @Lock(LockType.READ)
     public ArrayList<String> getMessages(String destination) {
@@ -66,8 +66,7 @@ public class ChatService {
         ArrayList<String> messages;
         messages = getMessages(queue);
 
-
-        // Show messages in memory
+        // Show messages from memory
         for(String msg : messages) {
             numMsgs++;
             out.write("<p>Message " + numMsgs + ": " + msg + "</p>");
@@ -77,7 +76,7 @@ public class ChatService {
     }
 
     /**
-     * Get Queue from pool (if user have queue) or queueList (if user not have queue)
+     * Get Queue from pool (if user already have queue) or queueList (if user not have queue)
      * @param sessionId
      * @return
      * @throws RuntimeException if not have queue for user

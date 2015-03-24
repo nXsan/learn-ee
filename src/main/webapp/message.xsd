@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+         <xs:element name="msg:Message">
+               <xs:complexType>
+                     <xs:sequence>
+                           <xs:element name="msg:MessageHeader">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element name="hd:MessageId" type="UUIDType"></xs:element>
+                                             <xs:element name="hd:Priority">
+                                                <xs:simpleType>
+                                                   <xs:restriction base="xs:integer">
+                                                       <xs:minInclusive value="1"/>
+                                                       <xs:maxInclusive value="10"/>
+                                                   </xs:restriction>
+                                                </xs:simpleType>
+                                             </xs:element>
+                                             <xs:element name="hd:Destination" maxOccurs="unbounded" type="SourceType">
+                                                   <xs:complexType>
+                                                         <xs:attribute name="waitingReceipt" type="CustomBooleanType" default="No"></xs:attribute>
+                                                   </xs:complexType>
+                                             </xs:element>
+                                             <xs:element name="hd:Source" type="SourceType"></xs:element>
+                                             <xs:element name="hd:Version" type="VersionType"></xs:element>
+                                             <xs:element name="hd:ObjectLastChanged" type="xs:dateTime"></xs:element>
+                                             <xs:element name="hd:Security">
+                                                   <xs:complexType>
+                                                         <xs:sequence>
+                                                               <xs:element name="ds:Signature" maxOccurs="unbounded">
+                                                                     <xs:complexType>
+                                                                           <xs:sequence>
+                                                                                 <xs:element name="ds:Reference">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="URI" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="ds:Transform">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="Algorithm" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="ds:Digest" type="xs:string"></xs:element>
+                                                                           </xs:sequence>
+                                                                           <xs:attribute name="xmlns:ds" type="xs:string"></xs:attribute>
+                                                                     </xs:complexType>
+                                                               </xs:element>
+                                                         </xs:sequence>
+                                                   </xs:complexType>
+                                             </xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                           <xs:element name="msg:MessageBody">
+                                 <xs:complexType>
+                                       <xs:choice>
+
+                                             <xs:element name="msg:PaymentDoc">
+                                                   <xs:complexType>
+                                                         <xs:sequence>
+                                                               <xs:element name="ns1:PaymentOrderRub">
+                                                                     <xs:complexType>
+                                                                           <xs:sequence>
+                                                                                 <xs:element name="ns1:ObjectID" type="UUIDType"></xs:element>
+                                                                                 <xs:element name="ns1:LocalIDSet" maxOccurs="unbounded">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="bt:LocalID" type="xs:string"></xs:element>
+                                                                                                   <xs:element name="bt:ComponentID" type="SourceType"></xs:element>
+                                                                                             </xs:sequence>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="ns1:OrderDate" type="xs:date"></xs:element>
+                                                                                 <xs:element name="ns1:OrderNo" type="xs:string"></xs:element>
+                                                                                 <xs:element name="ns1:ValueDate" type="xs:date"></xs:element>
+                                                                                 <xs:element name="ns1:Debit" type="xs:int"></xs:element>
+                                                                                 <xs:element name="ns1:Credit" type="xs:int"></xs:element>
+                                                                                 <xs:element name="ns1:RubAmt" type="xs:int"></xs:element>
+                                                                           </xs:sequence>
+                                                                     </xs:complexType>
+                                                               </xs:element>
+                                                         </xs:sequence>
+                                                   </xs:complexType>
+                                             </xs:element>
+
+                                             <xs:element name="msg:Receipt">
+                                                 <xs:complexType>
+                                                     <xs:sequence>
+                                                         <xs:element name="rpt:ObjectID" type="UUIDType"></xs:element>
+                                                         <xs:element name="rpt:ObjectType" type="xs:string"></xs:element>
+                                                         <xs:element name="rpt:LocalIDSet">
+                                                             <xs:complexType>
+                                                                 <xs:sequence>
+                                                                     <xs:element name="bt:LocalID" type="xs:string"></xs:element>
+                                                                     <xs:element name="bt:ComponentID" type="xs:string"></xs:element>
+                                                                 </xs:sequence>
+                                                             </xs:complexType>
+                                                         </xs:element>
+                                                         <xs:element name="rpt:Flag" type="xs:int"></xs:element>
+                                                         <xs:element name="rpt:State" type="xs:string"></xs:element>
+                                                         <xs:element name="rpt:Description">
+                                                             <xs:simpleType>
+                                                                 <xs:restriction base="xs:string">
+                                                                     <xs:maxLength value = "2000"/>
+                                                                 </xs:restriction>
+                                                             </xs:simpleType>
+                                                         </xs:element>
+                                                         <xs:element name="rpt:Final" type="xs:boolean"></xs:element>
+                                                     </xs:sequence>
+                                                 </xs:complexType>
+                                             </xs:element>
+
+                                       </xs:choice>
+                                 </xs:complexType>
+                           </xs:element>
+                     </xs:sequence>
+                     <xs:attribute name="xmlns:msg" type="xs:string"></xs:attribute>
+                     <xs:attribute name="xmlns:bi" type="xs:string"></xs:attribute>
+                     <xs:attribute name="xmlns:bt" type="xs:string"></xs:attribute>
+                     <xs:attribute name="xmlns:hd" type="xs:string"></xs:attribute>
+                     <xs:attribute name="xmlns:ns1" type="xs:string"></xs:attribute>
+               </xs:complexType>
+         </xs:element>
+
+
+        <xs:simpleType name="UUIDType">
+            <xs:restriction base="xs:string">
+                <xs:length value="36" fixed="true" />
+                <xs:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[8-9a-bA-B][0-9a-fA-F]{3}-[0-9a-fA-F]{12}" />
+            </xs:restriction>
+        </xs:simpleType>
+
+        <xs:simpleType name="CustomBooleanType" >
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="Yes" />
+                <xs:enumeration value="No"/>
+            </xs:restriction>
+        </xs:simpleType>
+
+        <xs:simpleType name="SourceType" >
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="CFT.RKO" />
+                <xs:enumeration value="DIASOFT.BANK4X4" />
+                <xs:enumeration value="Custis.GL" />
+                <xs:enumeration value="CFT.RС" />
+            </xs:restriction>
+        </xs:simpleType>
+
+        <xs:simpleType name="VersionType" >
+            <xs:restriction base="xs:string">
+                <xs:pattern value="[0-9]+[.][0-9]+" />
+            </xs:restriction>
+        </xs:simpleType>
+
+   </xs:schema>
+ 

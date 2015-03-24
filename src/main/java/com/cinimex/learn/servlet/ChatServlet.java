@@ -41,7 +41,7 @@ public class ChatServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.write("<h1>Example demonstrates the use of <strong>JMS 2.0</strong> and <strong>EJB 3.2 Message-Driven Bean</strong> in WildFly 8.</h1>");
+        out.write("<h1>Example demonstrates the use of <strong>Servlet</strong>, <strong>JMS 2.0</strong> and <strong>EJB 3.2 Message-Driven Bean</strong> in WildFly 8.</h1>");
         if (autoRefresh > 0) {
             response.addHeader("Refresh", autoRefresh.toString());
             out.write("<p>Auto refresh every " + autoRefresh + " seconds</p>");
