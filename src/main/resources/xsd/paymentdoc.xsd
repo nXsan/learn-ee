@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://paymentdoc.kfd.gpb.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import schemaLocation="basetypes.xsd" namespace="http://basetypes.kfd.gpb.ru"/>
+
+  <xs:element name="PaymentOrderRub" type="pay:PaymentOrderRubType" xmlns:pay="http://paymentdoc.kfd.gpb.ru"/>
+
+  <xs:complexType name="PaymentOrderRubType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="ObjectID"/>
+      <xs:element type="bas:LocalIDSetType" name="LocalIDSet" maxOccurs="unbounded" minOccurs="0" xmlns:bas="http://basetypes.kfd.gpb.ru"/>
+      <xs:element type="xs:string" name="OrderDate"/>
+      <xs:element type="xs:string" name="OrderNo"/>
+      <xs:element type="xs:string" name="ValueDate"/>
+      <xs:element type="xs:string" name="Debit"/>
+      <xs:element type="xs:string" name="Credit"/>
+      <xs:element type="xs:string" name="RubAmt"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

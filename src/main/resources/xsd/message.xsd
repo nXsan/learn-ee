@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://message.kfd.gpb.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+  <xs:import schemaLocation="receipt.xsd" namespace="http://receipt.kfd.gpb.ru" />
+  <xs:import schemaLocation="paymentdoc.xsd" namespace="http://paymentdoc.kfd.gpb.ru"/>
+  <xs:import schemaLocation="messageheader.xsd" namespace="http://messageheader.kfd.gpb.ru"/>
+
+  <xs:element name="Message" type="mes:MessageType" xmlns:mes="http://message.kfd.gpb.ru"/>
+
+  <xs:complexType name="MessageBodyType">
+    <xs:choice>
+      <xs:element type="mes:ReceiptType" name="Receipt" xmlns:mes="http://message.kfd.gpb.ru"/>
+      <xs:element type="mes:PaymentDocType" name="PaymentDoc" xmlns:mes="http://message.kfd.gpb.ru"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="ReceiptType">
+    <xs:sequence>
+      <xs:element ref="rec:ObjectID" xmlns:rec="http://receipt.kfd.gpb.ru"/>
+      <xs:element ref="rec:ObjectType" xmlns:rec="http://receipt.kfd.gpb.ru"/>
+      <xs:element ref="rec:LocalIDSet" xmlns:rec="http://receipt.kfd.gpb.ru"/>
+      <xs:element ref="rec:Flag" xmlns:rec="http://receipt.kfd.gpb.ru"/>
+      <xs:element ref="rec:State" xmlns:rec="http://receipt.kfd.gpb.ru"/>
+      <xs:element ref="rec:Description" xmlns:rec="http://receipt.kfd.gpb.ru"/>
+      <xs:element ref="rec:Final" xmlns:rec="http://receipt.kfd.gpb.ru"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PaymentDocType">
+      <xs:sequence>
+         <xs:element ref="pay:PaymentOrderRub" xmlns:pay="http://paymentdoc.kfd.gpb.ru"/>
+      </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MessageHeaderType">
+    <xs:sequence>
+      <xs:element ref="mes:MessageId" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+      <xs:element ref="mes:CorrelationId" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+      <xs:element ref="mes:Priority" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+      <xs:element ref="mes:Destination" xmlns:mes="http://messageheader.kfd.gpb.ru" maxOccurs="unbounded"/>
+      <xs:element ref="mes:Source" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+      <xs:element ref="mes:Version" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+      <xs:element ref="mes:ObjectLastChanged" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+      <xs:element ref="mes:Security" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MessageType">
+    <xs:sequence>
+      <xs:element type="mes:MessageHeaderType" name="MessageHeader" xmlns:mes="http://message.kfd.gpb.ru"/>
+      <xs:element type="mes:MessageBodyType" name="MessageBody" xmlns:mes="http://message.kfd.gpb.ru"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

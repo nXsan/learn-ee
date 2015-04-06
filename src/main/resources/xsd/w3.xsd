@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Signature" type="xd:SignatureType" xmlns:xd="http://www.w3.org/2000/09/xmldsig#"/>
+
+  <xs:complexType name="SignatureType">
+    <xs:sequence>
+      <xs:element type="xd:ReferenceType" name="Reference" xmlns:xd="http://www.w3.org/2000/09/xmldsig#"/>
+      <xs:element type="xd:TransformType" name="Transform" xmlns:xd="http://www.w3.org/2000/09/xmldsig#"/>
+      <xs:element type="xs:string" name="Digest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReferenceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="URI"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="TransformType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="Algorithm"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+</xs:schema>
