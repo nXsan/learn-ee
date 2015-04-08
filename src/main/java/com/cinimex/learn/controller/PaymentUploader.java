@@ -2,6 +2,7 @@ package com.cinimex.learn.controller;
 
 import com.cinimex.learn.service.PaymentService;
 import com.cinimex.learn.service.XmlService;
+import org.apache.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -15,6 +16,8 @@ import java.io.*;
 @ManagedBean
 @SessionScoped
 public class PaymentUploader implements Serializable  {
+
+    private static final Logger log = Logger.getLogger(PaymentUploader.class);
 
     private static final long serialVersionUID = 9040359120893077422L;
 
@@ -34,18 +37,21 @@ public class PaymentUploader implements Serializable  {
 
         try {
             if (paymentService.validate(inputStream)) {
+                inputStream = file.getInputStream();
                 paymentService.upload(inputStream, fileName);
-                statusMessage = "File upload successfull!!!";
+                statusMessage = "File upload successfully!!!";
             }
             else {
                 statusMessage = "File not validate! " + xmlService.getLastMessage() ;
+                log.warn("XML file not validate");
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            log.error("Upload file failed", e);
             statusMessage = "File upload failed!!!";
         }
         finally {
+            log.debug("End upload");
             if (inputStream != null) {
                 inputStream.close();
             }

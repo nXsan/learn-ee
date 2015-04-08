@@ -1,5 +1,8 @@
 package com.cinimex.learn.service;
 
+import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
+
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -17,6 +20,8 @@ import static javax.ejb.ConcurrencyManagementType.BEAN;
 @ConcurrencyManagement(BEAN)
 public class PaymentService {
 
+    private static final Logger log = Logger.getLogger(PaymentService.class);
+
     @EJB
     XmlService xmlService;
 
@@ -24,26 +29,29 @@ public class PaymentService {
     private final static String SCHEMA_MESSAGE_NAME = "message.xsd";
     public final static String BASE_PATH = "C:" + File.separator + "temp" + File.separator;
 
-    public Boolean validate(InputStream xmlFile){
+    public Boolean validate(InputStream xmlFile) throws Exception {
+        log.debug("Start validate xml");
         Boolean result = false;
         try {
             xmlService.setSchema(LOCATION_SCHEMA + SCHEMA_MESSAGE_NAME);
             result = xmlService.validateBySchema(xmlFile);
         }
-        catch(Exception ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
+        catch(SAXException e) {
+            log.error("Validate error", e);
             result = false;
         }
         return result;
     }
 
     public void upload(InputStream inputStream, String fileName) throws IOException {
+        log.debug("Start upload file");
         File outputFile = new File(BASE_PATH + fileName);
-//            Creating file if not exist
+
+//        Creating file if not exist
         if(!outputFile.exists()) {
             outputFile.createNewFile();
-        }
+
+       }
 
         OutputStream outputStream = new FileOutputStream(outputFile, false);
         try {
