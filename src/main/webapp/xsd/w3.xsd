@@ -5,11 +5,11 @@
   <xs:element name="Signature" type="xd:SignatureType" xmlns:xd="http://www.w3.org/2000/09/xmldsig#"/>
 
   <xs:complexType name="SignatureType">
-    <xs:sequence>
+    <xs:all>
       <xs:element type="xd:ReferenceType" name="Reference" xmlns:xd="http://www.w3.org/2000/09/xmldsig#"/>
       <xs:element type="xd:TransformType" name="Transform" xmlns:xd="http://www.w3.org/2000/09/xmldsig#"/>
       <xs:element type="xs:string" name="Digest"/>
-    </xs:sequence>
+    </xs:all>
   </xs:complexType>
 
   <xs:complexType name="ReferenceType">

@@ -6,10 +6,17 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Импорт XML для валидации</title>
+    <title>Импорт XML</title>
 </h:head>
 <f:view>
-    <h:messages></h:messages>
-    <h:outputLabel value="Hello, world"/>
+    <h3>Import xml</h3>
+    <h:form id="form" enctype="multipart/form-data">
+        <h:inputFile id="file" value="#{paymentUploader.file}"/>
+        <h:commandButton value="Upload"
+                         action="#{paymentUploader.upload}"/>
+        <h:messages infoClass="info" errorClass="error" />
+    </h:form>
+    <h:outputText value="#{paymentUploader.statusMessage}"
+                  rendered="#{not empty paymentUploader.statusMessage}" />
 </f:view>
 </html>

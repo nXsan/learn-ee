@@ -17,7 +17,7 @@
   </xs:complexType>
 
   <xs:complexType name="ReceiptType">
-    <xs:sequence>
+    <xs:all>
       <xs:element ref="rec:ObjectID" xmlns:rec="http://receipt.kfd.gpb.ru"/>
       <xs:element ref="rec:ObjectType" xmlns:rec="http://receipt.kfd.gpb.ru"/>
       <xs:element ref="rec:LocalIDSet" xmlns:rec="http://receipt.kfd.gpb.ru"/>
@@ -25,26 +25,26 @@
       <xs:element ref="rec:State" xmlns:rec="http://receipt.kfd.gpb.ru"/>
       <xs:element ref="rec:Description" xmlns:rec="http://receipt.kfd.gpb.ru"/>
       <xs:element ref="rec:Final" xmlns:rec="http://receipt.kfd.gpb.ru"/>
-    </xs:sequence>
+    </xs:all>
   </xs:complexType>
 
   <xs:complexType name="PaymentDocType">
-      <xs:sequence>
+      <xs:all>
          <xs:element ref="pay:PaymentOrderRub" xmlns:pay="http://paymentdoc.kfd.gpb.ru"/>
-      </xs:sequence>
+      </xs:all>
   </xs:complexType>
 
   <xs:complexType name="MessageHeaderType">
-    <xs:sequence>
+    <xs:all>
       <xs:element ref="mes:MessageId" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
-      <xs:element ref="mes:CorrelationId" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+      <xs:element minOccurs="0" ref="mes:CorrelationId" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
       <xs:element ref="mes:Priority" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
-      <xs:element ref="mes:Destination" xmlns:mes="http://messageheader.kfd.gpb.ru" maxOccurs="unbounded"/>
+      <xs:element minOccurs="0" ref="mes:Destination" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
       <xs:element ref="mes:Source" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
       <xs:element ref="mes:Version" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
       <xs:element ref="mes:ObjectLastChanged" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
-      <xs:element ref="mes:Security" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
-    </xs:sequence>
+      <xs:element minOccurs="0" ref="mes:Security" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
+    </xs:all>
   </xs:complexType>
 
   <xs:complexType name="MessageType">

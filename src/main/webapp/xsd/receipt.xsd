@@ -8,7 +8,7 @@
     <xs:element name="ObjectType" type="xs:string"/>
     <xs:element name="Final" type="xs:boolean"/>
     <xs:element name="ObjectID" type="bas:UUIDType" xmlns:bas="http://basetypes.kfd.gpb.ru"/>
-    <xs:element name="LocalIDSet" type="bas:LocalIDSetType" xmlns:bas="http://basetypes.kfd.gpb.ru"/>
+    <xs:element type="bas:LocalIDSetType" name="LocalIDSet" xmlns:bas="http://basetypes.kfd.gpb.ru"/>
     <xs:element name="Description">
         <xs:simpleType>
             <xs:restriction base="xs:string">

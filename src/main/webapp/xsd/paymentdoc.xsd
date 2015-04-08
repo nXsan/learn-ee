@@ -6,12 +6,12 @@
   <xs:element name="PaymentOrderRub" type="pay:PaymentOrderRubType" xmlns:pay="http://paymentdoc.kfd.gpb.ru"/>
 
   <xs:complexType name="PaymentOrderRubType">
-    <xs:sequence>
-      <xs:element type="xs:string" name="ObjectID"/>
-      <xs:element type="bas:LocalIDSetType" name="LocalIDSet" maxOccurs="unbounded" minOccurs="0" xmlns:bas="http://basetypes.kfd.gpb.ru"/>
-      <xs:element type="xs:string" name="OrderDate"/>
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:element name="ObjectID" type="bas:UUIDType" xmlns:bas="http://basetypes.kfd.gpb.ru"/>
+      <xs:element type="bas:LocalIDSetType" name="LocalIDSet" xmlns:bas="http://basetypes.kfd.gpb.ru" maxOccurs="unbounded" />
+      <xs:element type="xs:date" name="OrderDate"/>
       <xs:element type="xs:string" name="OrderNo"/>
-      <xs:element type="xs:string" name="ValueDate"/>
+      <xs:element type="xs:date" name="ValueDate"/>
       <xs:element type="xs:string" name="Debit"/>
       <xs:element type="xs:string" name="Credit"/>
       <xs:element type="xs:string" name="RubAmt"/>

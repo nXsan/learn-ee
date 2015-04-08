@@ -59,15 +59,22 @@
             <version>1.2.17</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.2.11</version>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.1</version>
         </dependency>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.2.11</version>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>1.2_15</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -131,14 +138,11 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <schemaDirectory>src/main/resources/xsd</schemaDirectory>
+                    <schemaDirectory>src/main/webapp/xsd</schemaDirectory>
                     <npa>true</npa>
-                    <includes>
-                        <include>*.xsd</include>
-                    </includes>
                     <outputDirectory>target/generated-sources/jaxb</outputDirectory>
-                    <!--<goal>src/main/java/com/cinimex/learn/jaxb</goal>-->
-                    <generatedResourcesDirectory>src/main/java/com/cinimex/learn/jaxb</generatedResourcesDirectory>
+                    <goal>src/main/java/com/cinimex/learn/jaxb</goal>
+                    <!--<generatedResourcesDirectory>src/main/java/com/cinimex/learn/jaxb</generatedResourcesDirectory>-->
                     <packageName>com.cinimex.learn.jaxb</packageName>
                 </configuration>
             </plugin>

@@ -6,13 +6,20 @@
     <xs:import schemaLocation="w3.xsd" namespace="http://www.w3.org/2000/09/xmldsig#"/>
 
     <xs:element name="Version" type="xs:string"/>
-    <xs:element name="ObjectLastChanged" type="xs:string"/>
-    <xs:element name="Priority" type="xs:string"/>
+    <xs:element name="ObjectLastChanged" type="xs:dateTime"/>
+    <xs:element name="Priority">
+        <xs:simpleType>
+            <xs:restriction base="xs:integer">
+                <xs:minInclusive value="0"/>
+                <xs:maxInclusive value="10"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
     <xs:element name="Destination" type="mes:DestinationType" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
     <xs:element name="Security" type="mes:SecurityType" xmlns:mes="http://messageheader.kfd.gpb.ru"/>
     <xs:element name="Source" type="xs:string" />
     <xs:element name="MessageId" type="bas:UUIDType" xmlns:bas="http://basetypes.kfd.gpb.ru"/>
-    <xs:element name="CorrelationId" type="xs:string"/>
+    <xs:element name="CorrelationId" type="bas:UUIDType" xmlns:bas="http://basetypes.kfd.gpb.ru"/>
 
     <xs:complexType name="SecurityType">
         <xs:sequence>

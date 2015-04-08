@@ -17,6 +17,7 @@
 							<bt:ComponentID>CFT.RC</bt:ComponentID>
 						</rpt:LocalIDSet>
 						<rpt:Flag>0</rpt:Flag>
+                        <rpt:Flag2>0</rpt:Flag2>
 						<rpt:State>Confirm</rpt:State>
 						<rpt:Description>Счет успешно обновлен</rpt:Description>
 						<rpt:Final>true</rpt:Final>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<msg:Message xmlns:msg="http://message.kfd.gpb.ru" xmlns:bi="http://bankinfo.kfd.gpb.ru" xmlns:bt="http://basetypes.kfd.gpb.ru" xmlns:hd="http://messageheader.kfd.gpb.ru" xmlns:ns1="http://paymentdoc.kfd.gpb.ru">
+	<msg:MessageHeader>
+		<hd:MessageId>e3ce5673-05ee-45dc-a9d7-e4502a96469d</hd:MessageId>
+		<hd:Priority>4</hd:Priority>
+		<hd:Destination waitingReceipt="Yes">CFT.RKO</hd:Destination>
+		<!--<hd:Destination waitingReceipt="No">Custis.GL</hd:Destination>-->
+		<hd:Source>DIASOFT.BANK4X4</hd:Source>
+		<hd:Version>0.15</hd:Version>
+		<hd:ObjectLastChanged>2014-03-03T12:01:23.001Z</hd:ObjectLastChanged>
+		<hd:Security>
+				<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+					<ds:Reference URI="#IOObject"/>
+					<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+					<ds:Digest>0KLQtdC/0LXRgNGMINC80L3QtSDQv9C+0LTQstC70LDRgdGC0L3QsCDRgdGF0LXQsNC80LAg0LLQtdGJ0LXQuSE=</ds:Digest>
+				</ds:Signature>
+		</hd:Security>
+	</msg:MessageHeader>
+	<msg:MessageBody>
+			<msg:PaymentDoc>
+				<ns1:PaymentOrderRub>
+					<ns1:ObjectID>CCCCCCCC-4Ff89-11D3-9A0C-0305E82C3301</ns1:ObjectID>
+					<ns1:LocalIDSet>
+							<bt:LocalID>NGARD01</bt:LocalID>
+							<bt:ComponentID>DIASOFT.BANK4X4</bt:ComponentID>
+					</ns1:LocalIDSet>
+					<ns1:LocalIDSet>
+							<bt:LocalID>RCACC01</bt:LocalID>
+							<bt:ComponentID>CFT.RC</bt:ComponentID>
+					</ns1:LocalIDSet>
+					<ns1:OrderNo>64578</ns1:OrderNo>
+					<ns1:ValueDate>2014-08-15</ns1:ValueDate>
+					<ns1:Debit>30101810600000000957</ns1:Debit>
+					<ns1:Credit>30101810600000000958</ns1:Credit>
+					<ns1:RubAmt>9490987</ns1:RubAmt>
+				</ns1:PaymentOrderRub>
+			</msg:PaymentDoc>
+	</msg:MessageBody>
+</msg:Message>
