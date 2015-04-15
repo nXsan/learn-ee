@@ -2,18 +2,19 @@ package com.cinimex.learn.servlet;
 
 import com.cinimex.learn.service.ChatService;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.jms.*;
+import javax.jms.Destination;
+import javax.jms.JMSContext;
+import javax.jms.Queue;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/chat")
 public class ChatServlet extends HttpServlet {

@@ -8,7 +8,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Part;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
 
 /**
  * Bean for working with 'file_load.jsf'
@@ -76,7 +78,8 @@ public class PaymentUploader implements Serializable  {
 
     private String getFileName(Part part) {
         final String partHeader = part.getHeader("content-disposition");
-        System.out.println("***** partHeader: " + partHeader);
+        log.debug("***** partHeader: " + partHeader);
+
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
                 return content.substring(content.indexOf('=') + 1).trim()

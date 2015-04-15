@@ -1,7 +1,5 @@
 package com.cinimex.learn.handler;
 
-import org.apache.log4j.xml.SAXErrorHandler;
-
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
 

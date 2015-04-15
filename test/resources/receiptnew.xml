@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<msg:Message xmlns:msg="http://message.kfd.gpb.ru" xmlns:bt="http://basetypes.kfd.gpb.ru" xmlns:hd="http://messageheader.kfd.gpb.ru" xmlns:rpt="http://receipt.kfd.gpb.ru">
+	<msg:MessageHeader>
+		<hd:MessageId>e3ce5676-05e5-46dc-a9d7-e4502a96468d</hd:MessageId>
+		<hd:CorrelationId>e3ce5676-05e5-46dc-a9d7-e4502a96468d</hd:CorrelationId>
+		<hd:Priority>1</hd:Priority>
+		<hd:Source>CFT.RKO</hd:Source>
+		<hd:Version>0.15</hd:Version>
+		<hd:ObjectLastChanged>2014-03-03T12:00:23.001Z</hd:ObjectLastChanged>
+	</msg:MessageHeader>
+	<msg:MessageBody>
+			<msg:Receipt>
+						<rpt:ObjectID>CCCCCCCC-4F89-11D3-9A0C-0305E82C3301</rpt:ObjectID>
+						<rpt:ObjectType>PaymentOrderRub</rpt:ObjectType>
+						<rpt:LocalIDSet>
+							<bt:LocalID>RCACC01</bt:LocalID>
+							<bt:ComponentID>CFT.RC</bt:ComponentID>
+						</rpt:LocalIDSet>
+						<rpt:Flag>0</rpt:Flag>
+						<rpt:State>Confirm</rpt:State>
+						<rpt:Description>Счет успешно обновлен</rpt:Description>
+						<rpt:Final>true</rpt:Final>
+			</msg:Receipt>
+	</msg:MessageBody>
+</msg:Message>

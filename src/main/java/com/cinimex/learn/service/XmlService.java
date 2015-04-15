@@ -75,26 +75,26 @@ public class XmlService {
         return writer.toString().replaceAll("[^\\x20-\\x7e]", "");
     }
 
-    public static String getEncoding() {
+    public String getEncoding() {
         return encoding;
     }
 
-    public static Schema getSchema() {
+    public Schema getSchema() {
         return schema;
     }
 
-    public static void setSchema(Schema schema) {
+    public void setSchema(Schema schema) {
         XmlService.schema = schema;
     }
 
-    public static void setSchema(String schemaPath) throws SAXException, MalformedURLException {
+    public void setSchema(String schemaPath) throws SAXException, MalformedURLException {
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = sf.newSchema(new URL(schemaPath));
 //        Schema schema = sf.newSchema(new File(schemaPath));
         XmlService.schema = schema;
     }
 
-    public static Boolean validateBySchema(InputStream xml) throws IOException, SAXException {
+    public Boolean validateBySchema(InputStream xml) throws IOException, SAXException {
         try {
             Validator validator = schema.newValidator();
             StreamSource source = new StreamSource(xml);
@@ -108,7 +108,7 @@ public class XmlService {
         return true;
     }
 
-    public static String getLastMessage() {
+    public String getLastMessage() {
         return lastMessage;
     }
 }

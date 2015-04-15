@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="personal-unit" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <jta-data-source>java:jboss/datasources/mysql</jta-data-source>
+
+        <class>com.cinimex.learn.model.AccountEntity</class>
+        <class>com.cinimex.learn.model.LeaderEntity</class>
+        <class>com.cinimex.learn.model.PersonalEntity</class>
+        <class>com.cinimex.learn.model.ProjectEntity</class>
+        <class>com.cinimex.learn.model.RequestEntity</class>
+        <class>com.cinimex.learn.model.RoleEntity</class>
+
+        <properties>
+            <!--<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/personaldb" />-->
+            <!--<property name="javax.persistence.jdbc.user" value="root" />-->
+            <!--<property name="javax.persistence.jdbc.password" value="" />-->
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.show_sql" value="false" />
+            <!--<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/personaldb"/>-->
+            <!--<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>-->
+            <!--<property name="hibernate.connection.username" value="root"/>-->
+            <!--<property name="hibernate.connection.password" value=""/>-->
+        </properties>
+
+
+
+    </persistence-unit>
+
+</persistence>

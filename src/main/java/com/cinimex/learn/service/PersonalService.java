@@ -1,13 +1,10 @@
 package com.cinimex.learn.service;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.*;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.jms.Queue;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static javax.ejb.ConcurrencyManagementType.BEAN;
 
@@ -18,9 +15,7 @@ import static javax.ejb.ConcurrencyManagementType.BEAN;
 @Singleton
 @ConcurrencyManagement(BEAN)
 public class PersonalService {
-
-    @Resource(lookup = "java:/jms/queue/Chat")
-    private Queue chatQueue;
+    
 
     public void registerRequest(String req) {
 

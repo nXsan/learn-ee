@@ -7,7 +7,6 @@ import javax.ejb.ConcurrencyManagement;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-
 import java.io.*;
 
 import static javax.ejb.ConcurrencyManagementType.BEAN;

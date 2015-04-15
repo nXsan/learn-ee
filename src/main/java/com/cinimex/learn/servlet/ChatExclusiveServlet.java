@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 @WebServlet("/chat_exclusive")
 public class ChatExclusiveServlet extends HttpServlet {

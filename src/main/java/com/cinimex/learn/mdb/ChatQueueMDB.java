@@ -3,9 +3,9 @@ package com.cinimex.learn.mdb;
 /**
  * Created by nXs on 17.03.2015.
  */
+
 import com.cinimex.learn.service.ChatService;
 
-import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -13,9 +13,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Logger;
 
 @MessageDriven(name = "ChatQueueMDB", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/queue/Chat"),
