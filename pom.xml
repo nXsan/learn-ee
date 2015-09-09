@@ -93,7 +93,11 @@
             <artifactId>jaxws-api</artifactId>
             <version>2.2.11</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.1.4</version>
+        </dependency>
 
 
     </dependencies>
@@ -150,6 +154,7 @@
                 </executions>
             </plugin>
 
+            <!--JAXB Pluging-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
@@ -172,6 +177,34 @@
                     <packageName>com.cinimex.learn.jaxb</packageName>
                 </configuration>
             </plugin>
+
+            <!-- JAX_WS Plugin-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>jaxws-maven-plugin</artifactId>-->
+                <!--<version>1.12</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>wsimport</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>-->
+                            <!--<wsdlFiles>-->
+                                <!--<wsdlFile>testWsdl.wsdl</wsdlFile>-->
+                            <!--</wsdlFiles>-->
+                            <!--<packageName>com.cinimex.learn.ws.test</packageName>-->
+                            <!--<sourceDestDir>${basedir}/target/generated-sources/</sourceDestDir>-->
+                            <!--<keep>true</keep>-->
+                            <!--<bindingFiles>-->
+                                <!--<bindingFile>${basedir}/src/main/resources/wsdl/binding.xml</bindingFile>-->
+                                <!--<bindingFile>${basedir}/src/main/resources/wsdl/jaxb-binding.xml</bindingFile>-->
+                            <!--</bindingFiles>-->
+                        <!--</configuration>-->
+                        <!--<phase>generate-sources</phase>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
 
         </plugins>
     </build>
